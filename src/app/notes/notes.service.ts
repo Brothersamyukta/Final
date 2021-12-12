@@ -71,6 +71,7 @@ export class NotesService {
   }
 
   deleteNote(note:Note){
+    console.log(note)
     if(!note){
       return 
     }
@@ -83,6 +84,7 @@ export class NotesService {
     this.http
       .delete('http://localhost:3000/notes/'+ note._id)
       .subscribe(response=> {
+        console.log(response)
         this.notes.splice(pos,1);
         this.send()
       })

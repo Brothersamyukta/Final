@@ -3,10 +3,12 @@ var router = express.Router();
 
 const Note = require('../models/note')
 
+var ObjectId = require('mongodb').ObjectId;
+
 
 router.get('/', (req,res,next) => {
     Note.find()
-    .sort({title:-1})
+    // .sort({title:-1})
     .then(notes => {
         res.status(200).json({
             message: "Notes fetched Successfully!!",
@@ -60,7 +62,7 @@ router.put("/:id", (req, res, next)=> {
     }) 
 
     Note.updateOne({ 
-        _id: req.params.id
+        _id: ObjectId(req.params.id)
     },
     notes
     )
@@ -106,9 +108,11 @@ router.put("/:id", (req, res, next)=> {
 });
 
 router.delete("/:id", (req, res, next) => {
-    Note.findOne({ id: req.params.id })
+    console.log(req.params.id)
+    Note.findOne({ _id: ObjectId(req.params.id) })
       .then((note) => {
-        Note.deleteOne({ id: req.params.id })
+          console.log(note)
+        Note.deleteOne({ _id: req.params.id })
           .then((result) => {
             res.status(204).json({
               message: "Note deleted successfully",
