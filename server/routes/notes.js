@@ -48,30 +48,60 @@ router.post('/', (req, res, next) => {
 })
 
 router.put("/:id", (req, res, next)=> {
+    // console.log(req.params.id)
+    // console.log(req.body.title)
+    // console.log(req.body.description)
+    // console.log(req.body._id)
+    
+    const notes = new Note({
+        _id: req.body._id,
+        title: req.body.title,
+        description: req.body.description
+    }) 
 
-    Note.findOne({id: req.params.id})
-        .then(note => {
-            note.title = req.body.title 
-            note.description = req.body.description
+    Note.updateOne({ 
+        _id: req.params.id
+    },
+    notes
+    )
 
-            Note.updateOne({id: req.params.id},note)
-            .then(reuslt => {
-                res.status(204).json({
-                    message: "Note updated Successfully!!"
-                })
-            })
-            .catch(error=> {
-                res.status(500).json({
-                    message: "An error Occured",
-                    error:error
-                })
-            })
+    .then(update => {
+        res.status(204).json({
+            message: "Note updated Successfully!!"
         })
-        .catch((error) => {
-            res.status(500).json({
-              message: "Note not found.",
-            });
-          });
+    })
+
+    .catch(error=> {
+        res.status(500).json({
+            message: "An error Occured",
+            error:error
+        })
+    })
+
+
+    // Note.findOne({id: req.params.id})
+    //     .then(note => {
+    //         note.title = req.body.title 
+    //         note.description = req.body.description
+
+    //         Note.updateOne({id: req.params.id},note)
+    //         .then(reuslt => {
+    //             res.status(204).json({
+    //                 message: "Note updated Successfully!!"
+    //             })
+    //         })
+    //         .catch(error=> {
+    //             res.status(500).json({
+    //                 message: "An error Occured",
+    //                 error:error
+    //             })
+    //         })
+    //     })
+    //     .catch((error) => {
+    //         res.status(500).json({
+    //           message: "Note not found.",
+    //         });
+    //       });
 
 });
 

@@ -8,13 +8,17 @@ import { Note } from '../models/note';
 })
 export class NotesService {
 
-  private notes: Note[] =[]
+  public notes: Note[] =[]
   public notesChangedEvent = new Subject<Note[]>();
 
   constructor(private http: HttpClient) { }
 
   getNote(id:string){
-    return this.notes.find(note => note._id == id)
+    console.log("i was from service")
+    console.log(id)
+    const note = this.notes.find(note => note._id === id)
+    console.log(note) 
+    return note
   }
 
   send(){
@@ -49,7 +53,11 @@ export class NotesService {
       return
     }
 
-    const pos = this.notes.findIndex(note=> note._id == originalNote._id);
+    const pos = this.notes.findIndex(note=> note._id === originalNote._id);
+
+    console.log(pos)
+    console.log(originalNote._id)
+    console.log(this.notes[pos])
 
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
 

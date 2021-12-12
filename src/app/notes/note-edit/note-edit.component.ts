@@ -42,8 +42,11 @@ export class NoteEditComponent implements OnInit {
     let newNote = new Note(
       null, value.title, value.description
     )
+  
+
     if(this.editMode){
-      this.noteService.updateNotes(this.originalNote, newNote);
+      let updatedNote = new Note(this.originalNote._id, value.title, value.description)
+      this.noteService.updateNotes(this.originalNote, updatedNote);
     } else{
       this.noteService.addNotes(newNote);
     }

@@ -17,7 +17,7 @@ export class NoteListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.noteService.getNotes();
     this.noteChangedSubscription = this.noteService.notesChangedEvent.subscribe(
-      (note => {
+      ((note: Note[]) => {
         this.notes = note
       })
     )
