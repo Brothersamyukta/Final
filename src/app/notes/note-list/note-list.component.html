@@ -1,0 +1,16 @@
+<!-- <p>note-list works!</p> -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row pad-left-right">
+        <span class="pull-left title">Notes</span>
+          <a class="btn btn-info pull-right" (click)="onNewNote()">New Note</a>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-12 margin-top">
+          <app-note-item *ngFor="let element of notes" [note]="element"></app-note-item>
+        </div>
+       </div>
+    </div>   
+</div>
